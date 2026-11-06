@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#243e38">
+  <title>SuperBuy spreadsheet – dansk guide til sko, tøj og QC</title>
+  <meta name="description" content="Brug en SuperBuy spreadsheet til at undersøge sko, tøj og accessories. Få danske råd om størrelser, QC-billeder og omkostninger før køb.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="da_DK">
+  <meta property="og:title" content="SuperBuy spreadsheet – fra inspiration til et gennemtænkt valg">
+  <meta property="og:description" content="Dansk vejledning til kategorier, størrelser, materialer og QC. Find ud af, hvad du skal kontrollere, før du går videre med et produkt.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SuperBuy spreadsheet – dansk købsguide">
+  <meta name="twitter:description" content="Sammenlign mål, læs produktinformation, og planlæg dit køb med en enkel dansk guide.">
+  <link rel="preconnect" href="https://static.nike.com" crossorigin>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f3eb;
+      --white: #fffefa;
+      --ink: #20332e;
+      --muted: #52615a;
+      --green: #243e38;
+      --lime: #deed9a;
+      --line: #d7dcd0;
+      --clay: #ead9c9;
+      --radius: 18px;
+      --width: 1200px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-underline-offset: .22em; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible, summary:focus-visible {
+      outline: 3px solid #8a491f;
+      outline-offset: 5px;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { line-height: 1.12; }
+    h1 {
+      font-size: clamp(2.65rem, 6.5vw, 5.6rem);
+      letter-spacing: -.055em;
+      max-width: 12ch;
+      margin: 18px 0 24px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3.6vw, 2.85rem);
+      letter-spacing: -.04em;
+    }
+    h3 { font-size: 1.25rem; letter-spacing: -.025em; }
+    p + p { margin-top: 14px; }
+    .wrap { width: min(var(--width), calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      font-size: .75rem;
+      font-weight: 750;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .muted { color: var(--muted); }
+    .header { border-bottom: 1px solid var(--line); }
+    .header-row {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 850;
+      letter-spacing: -.04em;
+      font-size: 1.55rem;
+    }
+    .mark {
+      width: 29px;
+      height: 29px;
+      background: var(--green);
+      border-radius: 50% 50% 3px 50%;
+      display: inline-block;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: .85rem;
+    }
+    .header-right a { font-weight: 700; }
+    .categories { padding: 26px 0 30px; }
+    .category-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+    .category-title h2 { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+    .category-title span { font-size: .78rem; color: var(--muted); }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .category {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 53px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      background: var(--white);
+      font-size: .86rem;
+      font-weight: 650;
+    }
+    .category::after { content: "↗"; margin-left: 8px; color: var(--muted); }
+    .category:hover { border-color: var(--green); background: var(--lime); }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--green);
+      color: var(--white);
+    }
+    .hero-copy { padding: clamp(28px, 4vw, 58px); align-self: center; }
+    .hero .eyebrow { color: var(--lime); }
+    .hero-intro { max-width: 46ch; color: #e2e8df; font-size: 1.02rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 14px 22px;
+      margin-top: 25px;
+      border-radius: 50px;
+      background: var(--lime);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+    .button:hover { background: #edf6c5; }
+    .hero-note { font-size: .76rem; color: #d1ddd4; margin-top: 17px; }
+    .hero-visual {
+      background: #e7e6e1;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      flex: 1;
+    }
+    .hero-visual figcaption {
+      padding: 16px 24px;
+      border-top: 1px solid #d0d2ca;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: .76rem;
+    }
+    .definition {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 36px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .definition h2 { font-size: 1.35rem; }
+    .definition p { max-width: 80ch; }
+    .section { padding: 64px 0; }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 28px;
+    }
+    .section-heading h2 { max-width: 20ch; margin-top: 12px; }
+    .section-heading > p { max-width: 40ch; font-size: .92rem; color: var(--muted); }
+    .checks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .check {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+    .number {
+      display: block;
+      color: #65755f;
+      font-size: .8rem;
+      font-weight: 750;
+      margin-bottom: 34px;
+    }
+    .check h3 { margin-bottom: 14px; }
+    .check p { color: var(--muted); font-size: .93rem; }
+    .editorial {
+      padding: 36px;
+      background: var(--clay);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .editorial-copy { padding: 8px 0; }
+    .editorial-copy h2 { margin: 14px 0 20px; max-width: 17ch; }
+    .editorial-copy p { max-width: 48ch; }
+    .image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-self: center; }
+    .reference {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .reference img {
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      object-fit: contain;
+      background: #fff;
+    }
+    .reference figcaption { font-size: .76rem; padding: 14px; line-height: 1.5; }
+    .reference strong { display: block; font-size: .87rem; margin-bottom: 4px; }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 36px;
+    }
+    .guide {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+    }
+    .guide-label { font-size: .73rem; color: var(--muted); margin-bottom: 12px; }
+    .guide h3 { font-size: 1.5rem; margin-bottom: 16px; max-width: 29ch; }
+    .guide p { font-size: .94rem; color: var(--muted); }
+    .guide ul { padding-left: 20px; margin: 16px 0 0; font-size: .9rem; }
+    .guide li + li { margin-top: 8px; }
+    .table-box { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
+    table { border-collapse: collapse; width: 100%; text-align: left; font-size: .9rem; }
+    caption { text-align: left; padding: 20px; font-weight: 750; background: #e8eddf; }
+    th, td { padding: 17px 20px; vertical-align: top; border-top: 1px solid var(--line); }
+    th { font-weight: 750; }
+    td { color: var(--muted); }
+    .faq-layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: 60px; }
+    .faq-heading h2 { margin: 12px 0 20px; }
+    .faq-heading p { color: var(--muted); font-size: .93rem; }
+    details { border-top: 1px solid var(--line); }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 20px 25px 20px 0;
+      line-height: 1.45;
+    }
+    details p { padding: 0 0 22px; color: var(--muted); font-size: .94rem; }
+    .closing {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 32px;
+      border-radius: var(--radius);
+      background: var(--lime);
+    }
+    .closing h2 { font-size: 1.65rem; margin-bottom: 8px; }
+    .closing p { font-size: .92rem; max-width: 65ch; }
+    .closing .button { margin: 0; background: var(--green); color: var(--white); white-space: nowrap; }
+    footer { padding: 36px 0; margin-top: 48px; border-top: 1px solid var(--line); }
+    .footer-row { display: flex; gap: 30px; justify-content: space-between; align-items: start; }
+    footer p { font-size: .78rem; color: var(--muted); max-width: 86ch; }
+    footer a { font-weight: 750; font-size: .85rem; white-space: nowrap; }
+    @media (max-width: 900px) {
+      .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero-copy { padding: 30px; }
+      .checks { gap: 10px; }
+      .check { padding: 22px; }
+      .editorial { grid-template-columns: 1fr; }
+      .editorial-copy h2, .editorial-copy p { max-width: none; }
+      .image-pair { max-width: 560px; width: 100%; }
+      .faq-layout { gap: 30px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 32px); }
+      .header-row { min-height: 72px; }
+      .header-right span { display: none; }
+      .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .category-title span { display: none; }
+      .category { font-size: .8rem; padding: 12px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy { padding: 30px 24px; }
+      h1 { max-width: 13ch; }
+      .hero-visual img { max-height: 350px; }
+      .definition { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+      .section { padding: 42px 0; }
+      .section-heading { display: block; }
+      .section-heading > p { margin-top: 16px; max-width: none; }
+      .checks, .guide-grid, .faq-layout { grid-template-columns: 1fr; }
+      .number { margin-bottom: 18px; }
+      .editorial { padding: 24px; gap: 24px; }
+      .image-pair { gap: 8px; }
+      .reference figcaption { padding: 11px; }
+      .closing, .footer-row { display: block; }
+      .closing { padding: 26px; }
+      .closing .button { margin-top: 20px; }
+      footer a { display: inline-block; margin-top: 20px; }
+      th, td { padding: 14px; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .category, .button { transition: background-color .15s ease; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "SuperBuy spreadsheet – dansk guide til sko, tøj og QC",
+        "inLanguage": "da",
+        "description": "Uafhængig dansk vejledning om produktlinks, størrelser, materialer, QC-billeder og omkostninger før køb.",
+        "about": {
+          "@type": "Thing",
+          "name": "SuperBuy spreadsheet",
+          "description": "En organiseret oversigt over produktlinks og oplysninger til sammenligning før køb."
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "Størrelsesguide: mål før du vælger",
+        "inLanguage": "da",
+        "articleBody": "En størrelsesguide til sneakers begynder med fodens længde i centimeter. Sammenhold målet med tabellen for den konkrete model. Ved tøj sammenlignes produktmål med et stykke tøj, der allerede passer. En størrelsesguide til hoodies bør vise brystvidde og længde. Se også på skuldre, ærmer, talje og indersøm."
+      },
+      {
+        "@type": "Article",
+        "headline": "QC-billeder: bed om det, du faktisk mangler",
+        "inLanguage": "da",
+        "articleBody": "QC-billeder kan hjælpe med at vurdere synlige detaljer, men dokumenterer ikke i sig selv ægthed. Kontrollér farve, syninger og den valgte variant. Bed om mål med målebånd ved tvivl om pasformen og om nærbilleder af de detaljer, der er vigtige for dit valg."
+      },
+      {
+        "@type": "Article",
+        "headline": "Materialer og detaljer gør sammenligningen nyttig",
+        "inLanguage": "da",
+        "articleBody": "Læs materialesammensætning og plejeanvisning. Produktets vægt er ikke alene et kvalitetsmål. Undersøg stof, sømme, lukninger og mål. Ved accessories bør du kontrollere dimensioner, overflade og oplysninger om metal eller belægning."
+      },
+      {
+        "@type": "Article",
+        "headline": "Fragtplanlægning: se på hele købet",
+        "inLanguage": "da",
+        "articleBody": "Skeln mellem varepris, lokal levering, servicegebyrer og international fragt. Undersøg pakkens vægt og mål, og kontrollér aktuelle betingelser hos den valgte tjeneste. En vejledende leveringstid er ikke en garanti. Afklar også returmuligheder før betaling."
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "da",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Hvad er en SuperBuy spreadsheet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Det er en organiseret oversigt over produktlinks og oplysninger, som kan bruges til at sammenligne varer før køb. En oversigt er ikke i sig selv dokumentation for kvalitet, lagerstatus eller ægthed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hvordan bruger jeg en SuperBuy spreadsheet som nybegynder?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vælg først en kategori, og lav en kort liste over relevante varer. Kontrollér derefter den oprindelige produktbeskrivelse, variant, mål og købsbetingelser, før du beslutter dig."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Går sidens links direkte til SuperBuy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nej. Kategorilinks går til de angivne kategorier på cafans.com. Alle øvrige klikbare links går til https://www.cafans.com. Denne side er en uafhængig guide."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kan QC-billeder bekræfte, at et produkt er ægte?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nej. QC-billeder kan vise synlige detaljer og eventuelle fejl, men kan ikke alene dokumentere ægthed. Hvis ægthed er afgørende, bør du vælge en forhandler med dokumenterbar oprindelse."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Er fragt med i en vist produktpris?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Det kan du ikke antage. Kontrollér varepris, lokal levering, servicegebyrer, international fragt og eventuelle importomkostninger hver for sig. Denne side viser ingen aktuelle priser eller fragttilbud."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Er mærkebillederne konkrete varer, jeg kan bestille her?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nej. Billederne er visuelle referencer til design og detaljer. De dokumenterer ikke tilgængelighed på Cafans, og der modtages hverken bestillinger eller betalinger på denne side."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!--
+    Filnavn: index.html.
+    Researchgrundlag: ti unikke søgeresultatwebsteder om SuperBuy spreadsheet:
+    su-perbuy.com, superbuyspreadsheet.org, repsheet.net, superbuy.cloud,
+    superbuy.club, superbuyyupoo.com, superbuyfind.org,
+    superbuy.spreadsheet.tv, superbuy.zone og superbuy.life.
+    Google-søgesiden kunne ikke tilgås; rækkefølgen på Googles første side
+    er derfor ikke verificeret. Teksten er selvstændigt formuleret.
+    Sekundære emner: SuperBuy guide, størrelsesguide til sneakers,
+    QC-billeder, fragtplanlægning, produktlinks til tøj.
+    Ingen publiceringsadresse er oplyst; canonical er derfor udeladt.
+  -->
+<link rel="canonical" href="https://kakobuyfinds.github.io/jqjph/">
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-row">
+      <a class="wordmark" href="https://www.cafans.com" aria-label="Cafans – åbn hjemmesiden">
+        <span class="mark" aria-hidden="true"></span>
+        cafans.com
+      </a>
+      <div class="header-right">
+        <span>Dansk læseguide · Uafhængigt indhold</span>
+        <a href="https://www.cafans.com">Udforsk Cafans ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <nav class="wrap categories" aria-label="Produktkategorier på Cafans">
+      <div class="category-title">
+        <h2>Start med en kategori</h2>
+        <span>Genveje til Cafans</span>
+      </div>
+      <div class="category-grid">
+        <a class="category" href="https://cafans.com/category-911-Shoes.html">Sko</a>
+        <a class="category" href="https://cafans.com/category-912-Hoodies%2FSweaters.html">Hættetrøjer og strik</a>
+        <a class="category" href="https://cafans.com/category-913-T-Shirts.html">T-shirts</a>
+        <a class="category" href="https://cafans.com/category-914-Jackets.html">Jakker</a>
+        <a class="category" href="https://cafans.com/category-915-Pants%2FShorts.html">Bukser og shorts</a>
+        <a class="category" href="https://cafans.com/category-916-Headwear.html">Hovedbeklædning</a>
+        <a class="category" href="https://cafans.com/category-917-Sets.html">Sæt</a>
+        <a class="category" href="https://cafans.com/category-918-underwear%2Funderpants.html">Undertøj og underbukser</a>
+        <a class="category" href="https://cafans.com/category-919-Jersey.html">Sportstrøjer</a>
+        <a class="category" href="https://cafans.com/category-920-Accessories.html">Accessories</a>
+      </div>
+    </nav>
+
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Færre gæt. Bedre overblik.</p>
+        <h1 id="hero-title">SuperBuy spreadsheet</h1>
+        <p class="hero-intro">
+          Fra det første fund til de detaljer, der afgør dit valg.
+          Brug denne danske guide til at sammenligne sko, tøj og accessories
+          med fokus på mål, materialer og oplysninger, du kan kontrollere.
+        </p>
+        <a class="button" href="https://www.cafans.com">Find inspiration på Cafans <span aria-hidden="true">↗</span></a>
+        <p class="hero-note">
+          Du går videre til Cafans. Guiden er ikke tilknyttet SuperBuy eller de viste mærker.
+        </p>
+      </div>
+      <figure class="hero-visual">
+        <img
+          src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,w_720/3f3e7049-5c99-428c-abcd-e246b086f2ed/AIR+FORCE+1+%2707.png"
+          alt="Nike Air Force 1 '07 – produktfoto af sneakerens form og paneler"
+          width="720"
+          height="720"
+          fetchpriority="high"
+          decoding="async">
+        <figcaption>
+          <span>Nike Air Force 1 '07</span>
+          <span>Visuel reference · ikke et tilbud</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="wrap definition" aria-labelledby="definition-title">
+      <h2 id="definition-title">Hvad er det egentlig?</h2>
+      <p>
+        En <strong>SuperBuy spreadsheet</strong> er en organiseret oversigt over
+        produktlinks og oplysninger til sammenligning før køb. Den kan hjælpe
+        dig med at samle muligheder ét sted, men et link eller et billede
+        dokumenterer ikke kvalitet, lagerstatus eller ægthed.
+        Tjek altid oplysningerne på den konkrete produktside.
+      </p>
+    </section>
+
+    <section class="wrap section" aria-labelledby="check-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow muted">Din første sortering</p>
+          <h2 id="check-title">Tre spørgsmål før du vælger</h2>
+        </div>
+        <p>
+          En god SuperBuy guide hjælper dig med at finde svar,
+          før du bruger tid på en lang liste af produktlinks til tøj.
+        </p>
+      </div>
+      <div class="checks">
+        <article class="check">
+          <span class="number">01 / PASFORM</span>
+          <h3>Passer målene til dig?</h3>
+          <p>
+            Sammenlign centimeter og snit. Den samme størrelsesbetegnelse
+            kan dække forskellige mål, så et kendt bogstav eller skostørrelsesnummer
+            er kun et udgangspunkt.
+          </p>
+        </article>
+        <article class="check">
+          <span class="number">02 / DOKUMENTATION</span>
+          <h3>Hvad kan du faktisk se?</h3>
+          <p>
+            Se efter tydelige billeder, en præcis materialesammensætning
+            og beskrivelse af varianten. Gem tvivlspunkter som spørgsmål,
+            du vil have besvaret før køb.
+          </p>
+        </article>
+        <article class="check">
+          <span class="number">03 / SAMLET KØB</span>
+          <h3>Kender du alle omkostninger?</h3>
+          <p>
+            Skeln mellem selve varen og de øvrige udgifter.
+            Fragtplanlægning bliver mere brugbar, når du også kender
+            pakkens forventede vægt, mål og betingelser.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap editorial" aria-labelledby="details-title">
+      <div class="editorial-copy">
+        <p class="eyebrow">Detaljen frem for logoet</p>
+        <h2 id="details-title">Se på form, overflade og finish.</h2>
+        <p>
+          Mærkebilleder kan være nyttige som visuel inspiration.
+          Ved sneakers er proportioner og paneler relevante; ved hovedbeklædning
+          er form og justering vigtige; ved accessories betyder mål og lukning meget.
+        </p>
+        <p>
+          Brug referencerne til at formulere konkrete spørgsmål.
+          Et genkendeligt mønster eller logo fortæller ikke i sig selv,
+          hvordan en anden vare er fremstillet.
+        </p>
+        <p class="muted">
+          Billederne her viser Nike, Gucci og Dior som designreferencer.
+          De er ikke en bekræftelse på varer i Cafans' sortiment.
+        </p>
+      </div>
+      <div class="image-pair">
+        <figure class="reference">
+          <img
+            src="https://media.gucci.com/style/White_South_0_160_316x316/1645725672/696856_4HAOB_9764_001_100_0000_Light--GG.jpg"
+            alt="Gucci flad kasket i GG-lærred, vist som reference til mønster og form"
+            width="316"
+            height="316"
+            loading="lazy"
+            decoding="async">
+          <figcaption>
+            <strong>Gucci · hovedbeklædning</strong>
+            Se på form, mønster og konstruktion.
+          </figcaption>
+        </figure>
+        <figure class="reference">
+          <img
+            src="https://assets.christiandior.com/is/image/diorprod/M0565ONGEM900_E01-1?wid=480&amp;hei=480&amp;fit=fit,1"
+            alt="Sort Lady Dior-taske vist forfra som reference til quiltning og håndtag"
+            width="480"
+            height="480"
+            loading="lazy"
+            decoding="async">
+          <figcaption>
+            <strong>Dior · accessories</strong>
+            Undersøg struktur, håndtag og finish.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap section" aria-labelledby="guides-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow muted">Tematiske miniguides</p>
+          <h2 id="guides-title">Gør din sammenligning konkret</h2>
+        </div>
+        <p>
+          Fire korte artikler med spørgsmål, du kan tage med videre,
+          når du undersøger et produkt.
+        </p>
+      </div>
+
+      <div class="guide-grid">
+        <article class="guide">
+          <p class="guide-label">01 · STØRRELSE OG SNIT</p>
+          <h3>Størrelsesguide: mål før du vælger</h3>
+          <p>
+            En <strong>størrelsesguide til sneakers</strong> begynder med fodens
+            længde i centimeter. Sammenhold målet med tabellen for den konkrete model;
+            antag ikke, at forskellige mærker bruger samme pasform.
+            Ved tøj er et stykke, der allerede passer dig, en praktisk reference.
+          </p>
+          <ul>
+            <li><strong>Størrelsesguide til hoodies:</strong> Sammenlign brystvidde og længde.</li>
+            <li><strong>Mål på T-shirts:</strong> Kontrollér skuldre, bryst og ærmer.</li>
+            <li><strong>Pasform på bukser og shorts:</strong> Se på talje, hofte og indersøm.</li>
+            <li><strong>Størrelse på sportstrøjer:</strong> Vælg efter ønsket plads til bevægelse.</li>
+            <li><strong>Størrelser på undertøj:</strong> Læs taljemål, elasticitet og variantbeskrivelse.</li>
+          </ul>
+        </article>
+
+        <article class="guide">
+          <p class="guide-label">02 · BILLEDER OG KONTROL</p>
+          <h3>QC-billeder: bed om det, du faktisk mangler</h3>
+          <p>
+            <strong>QC-billeder før afsendelse</strong> kan hjælpe med at vurdere
+            synlige detaljer. De er ikke et ægthedsbevis. Tænk over, hvilken
+            oplysning der mangler, før du beder om flere fotos:
+            et ekstra billede er mest nyttigt, når det besvarer et bestemt spørgsmål.
+          </p>
+          <ul>
+            <li><strong>QC af sneakers:</strong> Sammenlign begge sko og den valgte variant.</li>
+            <li><strong>Kontrol af syninger på tøj:</strong> Bed om nærbilleder af samlinger.</li>
+            <li><strong>Mål med målebånd:</strong> Få vist de afgørende produktmål.</li>
+            <li><strong>Farveforskel på produktbilleder:</strong> Tag højde for lys og skærm.</li>
+            <li><strong>Kontrol af accessories:</strong> Se efter lukninger og synlige overfladefejl.</li>
+          </ul>
+        </article>
+
+        <article class="guide">
+          <p class="guide-label">03 · STOF OG KONSTRUKTION</p>
+          <h3>Materialer og detaljer gør sammenligningen nyttig</h3>
+          <p>
+            Læs materialesammensætning og plejeanvisning, når du
+            <strong>sammenligner tøj i en spreadsheet</strong>.
+            Produktets vægt er ikke alene et kvalitetsmål.
+            Se i stedet oplysningerne sammen med konstruktion, anvendelse og pasform.
+          </p>
+          <ul>
+            <li><strong>Materialevalg til hættetrøjer:</strong> Undersøg stof og inderside.</li>
+            <li><strong>Valg af jakke til lag på lag:</strong> Kontrollér plads over dit øvrige tøj.</li>
+            <li><strong>Mål på kasketter og hatte:</strong> Se efter omkreds og justering.</li>
+            <li><strong>Pasform på matchende sæt:</strong> Vurder overdel og underdel hver for sig.</li>
+            <li><strong>Materialer i smykker:</strong> Bed om oplysninger om metal og belægning.</li>
+          </ul>
+        </article>
+
+        <article class="guide">
+          <p class="guide-label">04 · BUDGET OG LEVERING</p>
+          <h3>Fragtplanlægning: se på hele købet</h3>
+          <p>
+            Når du laver et <strong>budget til køb via produktlinks</strong>,
+            bør du holde varepris, lokal levering, servicegebyrer og international
+            fragt adskilt. Kontrollér aktuelle betingelser hos den tjeneste,
+            du vælger. En vejledende leveringstid er ikke en garanti.
+          </p>
+          <ul>
+            <li><strong>Samlet pris før bestilling:</strong> Notér alle oplyste omkostninger.</li>
+            <li><strong>Pakkens vægt og mål:</strong> Undersøg begge dele før valg af fragt.</li>
+            <li><strong>Fragt med eller uden skoæske:</strong> Afvej beskyttelse og plads.</li>
+            <li><strong>Leveringstid til Danmark:</strong> Se på den konkrete rute og betingelser.</li>
+            <li><strong>Returmuligheder før betaling:</strong> Afklar frister og ansvar på forhånd.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Tjekliste til produktsammenligning">
+      <div class="table-box">
+        <table>
+          <caption>En kort liste giver et bedre beslutningsgrundlag</caption>
+          <thead>
+            <tr>
+              <th scope="col">Oplysning</th>
+              <th scope="col">Det bør du gemme</th>
+              <th scope="col">Det hjælper dig med</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Produkt og variant</th>
+              <td>Oprindeligt link, model, farve og valgt størrelse</td>
+              <td>At sammenligne den samme vare og undgå variantforveksling</td>
+            </tr>
+            <tr>
+              <th scope="row">Mål og materiale</th>
+              <td>Produktmål, sammensætning og relevante plejeoplysninger</td>
+              <td>At vurdere pasform og anvendelse</td>
+            </tr>
+            <tr>
+              <th scope="row">Billeder og spørgsmål</th>
+              <td>Tydelige fotos samt en liste over ubesvarede spørgsmål</td>
+              <td>At skelne mellem det dokumenterede og det usikre</td>
+            </tr>
+            <tr>
+              <th scope="row">Pris og betingelser</th>
+              <td>Oplyste udgifter og datoen, du kontrollerede dem</td>
+              <td>At opdage ændringer og vurdere købet samlet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section faq-layout" aria-labelledby="faq-title">
+      <div class="faq-heading">
+        <p class="eyebrow muted">Direkte svar</p>
+        <h2 id="faq-title">Før du går videre</h2>
+        <p>
+          Brug en oversigt som et udgangspunkt for undersøgelse.
+          Produktbeskrivelse og aktuelle betingelser skal stadig kontrolleres.
+        </p>
+      </div>
+      <div>
+        <details open>
+          <summary>Hvad er en SuperBuy spreadsheet?</summary>
+          <p>
+            Det er en organiseret oversigt over produktlinks og oplysninger,
+            som kan bruges til at sammenligne varer før køb. En oversigt er
+            ikke i sig selv dokumentation for kvalitet, lagerstatus eller ægthed.
+          </p>
+        </details>
+        <details>
+          <summary>Hvordan bruger jeg en SuperBuy spreadsheet som nybegynder?</summary>
+          <p>
+            Vælg først en kategori, og lav en kort liste over relevante varer.
+            Kontrollér derefter den oprindelige produktbeskrivelse, variant,
+            mål og købsbetingelser, før du beslutter dig.
+          </p>
+        </details>
+        <details>
+          <summary>Går sidens links direkte til SuperBuy?</summary>
+          <p>
+            Nej. Kategorilinks går til de angivne kategorier på cafans.com.
+            Alle øvrige klikbare links går til https://www.cafans.com.
+            Denne side er en uafhængig guide.
+          </p>
+        </details>
+        <details>
+          <summary>Kan QC-billeder bekræfte, at et produkt er ægte?</summary>
+          <p>
+            Nej. QC-billeder kan vise synlige detaljer og eventuelle fejl,
+            men kan ikke alene dokumentere ægthed. Hvis ægthed er afgørende,
+            bør du vælge en forhandler med dokumenterbar oprindelse.
+          </p>
+        </details>
+        <details>
+          <summary>Er fragt med i en vist produktpris?</summary>
+          <p>
+            Det kan du ikke antage. Kontrollér varepris, lokal levering,
+            servicegebyrer, international fragt og eventuelle importomkostninger
+            hver for sig. Denne side viser ingen aktuelle priser eller fragttilbud.
+          </p>
+        </details>
+        <details>
+          <summary>Er mærkebillederne konkrete varer, jeg kan bestille her?</summary>
+          <p>
+            Nej. Billederne er visuelle referencer til design og detaljer.
+            De dokumenterer ikke tilgængelighed på Cafans, og der modtages
+            hverken bestillinger eller betalinger på denne side.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <aside class="wrap closing" aria-label="Fortsæt til Cafans">
+      <div>
+        <h2>Find din næste mulighed.</h2>
+        <p>
+          Gå videre med en kort tjekliste: den rigtige variant,
+          forståelige mål og svar på de spørgsmål, der betyder noget for dig.
+        </p>
+      </div>
+      <a class="button" href="https://www.cafans.com">Åbn Cafans <span aria-hidden="true">↗</span></a>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <p>
+        Uafhængig dansk informationsside om SuperBuy spreadsheet.
+        SuperBuy, Nike, Louis Vuitton, Gucci, Hermès og Dior er varemærker
+        tilhørende deres respektive ejere. Der hævdes ingen officiel
+        tilknytning eller godkendelse. Mærkebilleder bruges som visuelle referencer.
+        Ingen priser, lagerløfter eller produktanmeldelser offentliggøres her.
+      </p>
+      <a href="https://www.cafans.com">cafans.com ↗</a>
+    </div>
+  </footer>
+</body>
+</html>
